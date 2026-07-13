@@ -1,0 +1,163 @@
+{
+  "info": {
+    "name": "EcoSmart API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:8000"
+    },
+    {
+      "key": "token",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "request": {
+        "method": "GET",
+        "url": "{{base_url}}/api/health"
+      }
+    },
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"demo@ecosmart.test\",\n  \"password\": \"password123\"\n}"
+        },
+        "url": "{{base_url}}/api/login"
+      }
+    },
+    {
+      "name": "Crear registro de reciclaje",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"material\": \"Plastico\",\n  \"cantidad\": 2,\n  \"puntos\": 24,\n  \"ubicacion\": \"Quito\",\n  \"origen\": \"scanner_simulado\"\n}"
+        },
+        "url": "{{base_url}}/api/registros-reciclaje"
+      }
+    },
+    {
+      "name": "Listar registros de reciclaje",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{base_url}}/api/registros-reciclaje"
+      }
+    },
+    {
+      "name": "Crear centro de reciclaje",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Punto Verde Sur\",\n  \"direccion\": \"Av. Maldonado y Moran Valverde\",\n  \"materiales_aceptados\": [\"Plastico\", \"Papel\"],\n  \"horario\": \"Lunes a sabado 08:00 - 16:00\",\n  \"activo\": true\n}"
+        },
+        "url": "{{base_url}}/api/centros-reciclaje"
+      }
+    },
+    {
+      "name": "Crear recompensa",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Cupon ecologico\",\n  \"descripcion\": \"Beneficio por reciclar.\",\n  \"puntos_necesarios\": 80,\n  \"cantidad_disponible\": 5,\n  \"activa\": true\n}"
+        },
+        "url": "{{base_url}}/api/recompensas"
+      }
+    },
+    {
+      "name": "Canjear recompensa",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"recompensa_id\": 1\n}"
+        },
+        "url": "{{base_url}}/api/canjes-recompensa"
+      }
+    }
+  ]
+}

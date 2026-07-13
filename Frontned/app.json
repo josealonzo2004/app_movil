@@ -1,0 +1,30 @@
+{
+  "expo": {
+    "name": "EcoSmart",
+    "slug": "reciclaje-inteligente",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "backgroundColor": "#F5F8F1"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "android": {
+      "package": "com.estudiante.ecosmart",
+      "permissions": [
+        "CAMERA",
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION"
+      ]
+    },
+    "ios": {
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSCameraUsageDescription": "EcoSmart usa la camara para simular el escaneo de comprobantes QR.",
+        "NSLocationWhenInUseUsageDescription": "EcoSmart usa tu ubicacion para mostrar los puntos verdes mas cercanos."
+      }
+    }
+  }
+}

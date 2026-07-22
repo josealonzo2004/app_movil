@@ -107,6 +107,12 @@ export const styles = StyleSheet.create({
     fontWeight: '700',
     minHeight: 52
   },
+  passwordEyeButton: {
+    alignItems: 'center',
+    height: 42,
+    justifyContent: 'center',
+    width: 36
+  },
   loginError: {
     color: '#B94A48',
     fontSize: 13,
@@ -356,6 +362,328 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 8,
     paddingVertical: 8
+  },
+  adminSummaryGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 10,
+    marginBottom: 14
+  },
+  adminMetricCard: {
+    backgroundColor: '#FFFFFF',
+    borderColor: '#DDE8D7',
+    borderRadius: 8,
+    borderWidth: 1,
+    flexBasis: '47%',
+    flexGrow: 1,
+    minHeight: 96,
+    padding: 12
+  },
+  adminMetricValue: {
+    color: '#102019',
+    fontSize: 20,
+    fontWeight: '900',
+    marginTop: 8
+  },
+  adminMetricLabel: {
+    color: '#63736A',
+    fontSize: 12,
+    fontWeight: '800',
+    marginTop: 3
+  },
+  adminSectionTabs: {
+    backgroundColor: '#E7F2E1',
+    borderRadius: 8,
+    flexDirection: 'row',
+    gap: 6,
+    marginBottom: 14,
+    marginTop: 14,
+    padding: 5
+  },
+  adminSectionButton: {
+    alignItems: 'center',
+    borderRadius: 8,
+    flex: 1,
+    gap: 4,
+    minHeight: 54,
+    justifyContent: 'center'
+  },
+  adminSectionButtonActive: {
+    backgroundColor: '#2E7D5B'
+  },
+  adminSectionText: {
+    color: '#63736A',
+    fontSize: 11,
+    fontWeight: '900'
+  },
+  adminSectionTextActive: {
+    color: '#FFFFFF'
+  },
+  adminCard: {
+    alignItems: 'center',
+    backgroundColor: '#FFFFFF',
+    borderColor: '#DDE8D7',
+    borderRadius: 8,
+    borderWidth: 1,
+    flexDirection: 'row',
+    gap: 12,
+    marginBottom: 10,
+    marginTop: 10,
+    padding: 14
+  },
+  adminEditArea: {
+    flex: 1,
+    gap: 8
+  },
+  adminActions: {
+    alignItems: 'flex-end',
+    gap: 8
+  },
+  adminSmallButton: {
+    backgroundColor: '#E7F2E1',
+    borderRadius: 8,
+    paddingHorizontal: 10,
+    paddingVertical: 8
+  },
+  adminSmallButtonText: {
+    color: '#2E7D5B',
+    fontSize: 11,
+    fontWeight: '900'
+  },
+  adminDangerTextButton: {
+    backgroundColor: '#FFF0EF',
+    borderColor: '#E8C1BE',
+    borderRadius: 8,
+    borderWidth: 1,
+    paddingHorizontal: 10,
+    paddingVertical: 8
+  },
+  adminDangerTextButtonText: {
+    color: '#B94A48',
+    fontSize: 11,
+    fontWeight: '900'
+  },
+  adminDangerButton: {
+    alignItems: 'center',
+    backgroundColor: '#FFF0EF',
+    borderColor: '#E8C1BE',
+    borderRadius: 8,
+    borderWidth: 1,
+    height: 34,
+    justifyContent: 'center',
+    width: 42
+  },
+  adminInputWrap: {
+    flex: 1
+  },
+  adminTextInput: {
+    backgroundColor: '#FFFFFF',
+    borderColor: '#DDE8D7',
+    borderRadius: 8,
+    borderWidth: 1,
+    color: '#102019',
+    fontSize: 15,
+    fontWeight: '700',
+    minHeight: 48,
+    marginBottom: 10,
+    paddingHorizontal: 12
+  },
+  adminTextInputError: {
+    borderColor: '#B94A48',
+    marginBottom: 4
+  },
+  adminFieldError: {
+    color: '#B94A48',
+    fontSize: 11,
+    fontWeight: '800',
+    marginBottom: 10
+  },
+  adminInputRow: {
+    flexDirection: 'row',
+    gap: 10
+  },
+  adminRoleBadge: {
+    alignSelf: 'flex-start',
+    backgroundColor: '#E7F2E1',
+    borderRadius: 8,
+    marginTop: 6,
+    paddingHorizontal: 9,
+    paddingVertical: 5
+  },
+  adminRoleBadgeText: {
+    color: '#2E7D5B',
+    fontSize: 12,
+    fontWeight: '900'
+  },
+  adminClaimStatus: {
+    alignSelf: 'flex-start',
+    backgroundColor: '#EDF0EA',
+    borderRadius: 8,
+    marginTop: 6,
+    paddingHorizontal: 9,
+    paddingVertical: 5
+  },
+  adminClaimStatusText: {
+    color: '#63736A',
+    fontSize: 12,
+    fontWeight: '900'
+  },
+  adminRoleSwitch: {
+    backgroundColor: '#E7F2E1',
+    borderRadius: 8,
+    flexDirection: 'row',
+    gap: 6,
+    padding: 5
+  },
+  adminRoleOption: {
+    alignItems: 'center',
+    borderRadius: 8,
+    flex: 1,
+    paddingVertical: 10
+  },
+  adminRoleOptionActive: {
+    backgroundColor: '#2E7D5B'
+  },
+  adminRoleOptionText: {
+    color: '#63736A',
+    fontSize: 13,
+    fontWeight: '900'
+  },
+  adminRoleOptionTextActive: {
+    color: '#FFFFFF'
+  },
+  adminEditActions: {
+    flexDirection: 'row',
+    gap: 10
+  },
+  adminSaveButton: {
+    alignItems: 'center',
+    backgroundColor: '#2E7D5B',
+    borderRadius: 8,
+    flex: 1,
+    paddingVertical: 12
+  },
+  adminSaveButtonText: {
+    color: '#FFFFFF',
+    fontSize: 13,
+    fontWeight: '900'
+  },
+  adminCancelButton: {
+    alignItems: 'center',
+    backgroundColor: '#EDF0EA',
+    borderRadius: 8,
+    flex: 1,
+    paddingVertical: 12
+  },
+  adminCancelButtonText: {
+    color: '#63736A',
+    fontSize: 13,
+    fontWeight: '900'
+  },
+  adminFormCancelButton: {
+    alignItems: 'center',
+    backgroundColor: '#EDF0EA',
+    borderRadius: 8,
+    marginTop: 8,
+    paddingVertical: 12
+  },
+  profileSummary: {
+    alignItems: 'center',
+    backgroundColor: '#FFFFFF',
+    borderColor: '#DDE8D7',
+    borderRadius: 8,
+    borderWidth: 1,
+    flexDirection: 'row',
+    gap: 14,
+    marginBottom: 12,
+    padding: 16
+  },
+  profileAvatar: {
+    alignItems: 'center',
+    backgroundColor: '#2E7D5B',
+    borderRadius: 8,
+    height: 64,
+    justifyContent: 'center',
+    width: 64
+  },
+  profileName: {
+    color: '#102019',
+    fontSize: 20,
+    fontWeight: '900'
+  },
+  profileStatsRow: {
+    flexDirection: 'row',
+    gap: 12,
+    marginBottom: 14
+  },
+  profileStat: {
+    backgroundColor: '#FFFFFF',
+    borderColor: '#DDE8D7',
+    borderRadius: 8,
+    borderWidth: 1,
+    flex: 1,
+    padding: 13
+  },
+  profileStatValue: {
+    color: '#102019',
+    fontSize: 20,
+    fontWeight: '900',
+    marginTop: 7
+  },
+  profileStatLabel: {
+    color: '#63736A',
+    fontSize: 12,
+    fontWeight: '800',
+    marginTop: 2
+  },
+  profileInputWrap: {
+    alignItems: 'center',
+    backgroundColor: '#FFFFFF',
+    borderColor: '#DDE8D7',
+    borderRadius: 8,
+    borderWidth: 1,
+    flexDirection: 'row',
+    gap: 9,
+    marginBottom: 10,
+    paddingHorizontal: 12
+  },
+  profileInput: {
+    color: '#102019',
+    flex: 1,
+    fontSize: 15,
+    fontWeight: '700',
+    minHeight: 48
+  },
+  paginationRow: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 16,
+    marginTop: 2
+  },
+  paginationButton: {
+    alignItems: 'center',
+    backgroundColor: '#E7F2E1',
+    borderRadius: 8,
+    flexDirection: 'row',
+    minHeight: 40,
+    paddingHorizontal: 9
+  },
+  paginationButtonDisabled: {
+    backgroundColor: '#EDF0EA'
+  },
+  paginationButtonText: {
+    color: '#2E7D5B',
+    fontSize: 11,
+    fontWeight: '900'
+  },
+  paginationButtonTextDisabled: {
+    color: '#9AA49D'
+  },
+  paginationLabel: {
+    color: '#63736A',
+    fontSize: 11,
+    fontWeight: '800'
   },
   materialBadge: {
     alignItems: 'center',

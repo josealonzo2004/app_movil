@@ -3,9 +3,11 @@ import { StatusBar } from 'expo-status-bar';
 import { useMemo, useState } from 'react';
 import { SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import BottomTabs from './src/components/BottomTabs';
+import AdminScreen from './src/screens/AdminScreen';
 import HomeScreen from './src/screens/HomeScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import PointsScreen from './src/screens/PointsScreen';
+import ProfileScreen from './src/screens/ProfileScreen';
 import RewardsScreen from './src/screens/RewardsScreen';
 import ScannerScreen from './src/screens/ScannerScreen';
 import { clearAuthToken } from './src/services/api';
@@ -84,6 +86,10 @@ export default function App() {
   }
 
   function renderActiveScreen() {
+    if (activeTab === 'admin') {
+      return <AdminScreen />;
+    }
+
     if (activeTab === 'home') {
       return (
         <HomeScreen
@@ -94,6 +100,17 @@ export default function App() {
           profileError={profileError}
           totalItems={totalItems}
           usedRewardPoints={usedRewardPoints}
+        />
+      );
+    }
+
+    if (activeTab === 'profile') {
+      return (
+        <ProfileScreen
+          currentUser={currentUser}
+          earnedPoints={earnedPoints}
+          onProfileUpdated={setCurrentUser}
+          totalItems={totalItems}
         />
       );
     }
@@ -129,6 +146,9 @@ export default function App() {
               <MaterialCommunityIcons color="#EFF8EA" name="star-circle" size={18} />
               <Text style={styles.scoreText}>{availablePoints} pts</Text>
             </View>
+            <TouchableOpacity onPress={() => setActiveTab('profile')} style={styles.logoutButton}>
+              <MaterialCommunityIcons color="#2E7D5B" name="account-outline" size={20} />
+            </TouchableOpacity>
             <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
               <MaterialCommunityIcons color="#2E7D5B" name="logout" size={20} />
             </TouchableOpacity>
@@ -139,7 +159,7 @@ export default function App() {
           {renderActiveScreen()}
         </ScrollView>
 
-        <BottomTabs activeTab={activeTab} onChangeTab={setActiveTab} />
+        <BottomTabs activeTab={activeTab} isAdmin={currentUser?.rol === 'admin'} onChangeTab={setActiveTab} />
       </View>
     </SafeAreaView>
   );

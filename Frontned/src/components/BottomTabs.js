@@ -3,10 +3,12 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import { tabs } from '../constants/navigation';
 import { styles } from '../styles/appStyles';
 
-export default function BottomTabs({ activeTab, onChangeTab }) {
+export default function BottomTabs({ activeTab, isAdmin, onChangeTab }) {
+  const visibleTabs = isAdmin ? [...tabs, { id: 'admin', label: 'Admin', icon: 'shield-account-outline' }] : tabs;
+
   return (
     <View style={styles.tabBar}>
-      {tabs.map((tab) => {
+      {visibleTabs.map((tab) => {
         const isActive = activeTab === tab.id;
 
         return (

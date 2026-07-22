@@ -19,11 +19,14 @@ export default function LoginScreen({ onLogin }) {
   const [authMode, setAuthMode] = useState('login');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [loginError, setLoginError] = useState('');
   const [registerName, setRegisterName] = useState('');
   const [registerEmail, setRegisterEmail] = useState('');
   const [registerPassword, setRegisterPassword] = useState('');
   const [registerConfirm, setRegisterConfirm] = useState('');
+  const [showRegisterPassword, setShowRegisterPassword] = useState(false);
+  const [showRegisterConfirm, setShowRegisterConfirm] = useState(false);
   const [registerError, setRegisterError] = useState('');
   const [registerSuccess, setRegisterSuccess] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -162,10 +165,17 @@ export default function LoginScreen({ onLogin }) {
                     onChangeText={setPassword}
                     placeholder="Minimo 4 caracteres"
                     placeholderTextColor="#8A968E"
-                    secureTextEntry
+                    secureTextEntry={!showPassword}
                     style={styles.loginInput}
                     value={password}
                   />
+                  <TouchableOpacity onPress={() => setShowPassword((current) => !current)} style={styles.passwordEyeButton}>
+                    <MaterialCommunityIcons
+                      color="#63736A"
+                      name={showPassword ? 'eye-off-outline' : 'eye-outline'}
+                      size={22}
+                    />
+                  </TouchableOpacity>
                 </View>
 
                 {loginError ? <Text style={styles.loginError}>{loginError}</Text> : null}
@@ -214,10 +224,17 @@ export default function LoginScreen({ onLogin }) {
                     onChangeText={setRegisterPassword}
                     placeholder="Minimo 6 caracteres"
                     placeholderTextColor="#8A968E"
-                    secureTextEntry
+                    secureTextEntry={!showRegisterPassword}
                     style={styles.loginInput}
                     value={registerPassword}
                   />
+                  <TouchableOpacity onPress={() => setShowRegisterPassword((current) => !current)} style={styles.passwordEyeButton}>
+                    <MaterialCommunityIcons
+                      color="#63736A"
+                      name={showRegisterPassword ? 'eye-off-outline' : 'eye-outline'}
+                      size={22}
+                    />
+                  </TouchableOpacity>
                 </View>
 
                 <Text style={styles.fieldLabel}>Confirmar contrasena</Text>
@@ -227,10 +244,17 @@ export default function LoginScreen({ onLogin }) {
                     onChangeText={setRegisterConfirm}
                     placeholder="Repite tu contrasena"
                     placeholderTextColor="#8A968E"
-                    secureTextEntry
+                    secureTextEntry={!showRegisterConfirm}
                     style={styles.loginInput}
                     value={registerConfirm}
                   />
+                  <TouchableOpacity onPress={() => setShowRegisterConfirm((current) => !current)} style={styles.passwordEyeButton}>
+                    <MaterialCommunityIcons
+                      color="#63736A"
+                      name={showRegisterConfirm ? 'eye-off-outline' : 'eye-outline'}
+                      size={22}
+                    />
+                  </TouchableOpacity>
                 </View>
 
                 {registerError ? <Text style={styles.loginError}>{registerError}</Text> : null}

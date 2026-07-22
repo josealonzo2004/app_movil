@@ -12,6 +12,7 @@ class RankingController extends Controller
     {
         $ranking = User::query()
             ->select('id', 'nombre')
+            ->where('rol', 'usuario')
             ->withSum('registrosReciclaje as puntos_totales', 'puntos')
             ->orderByDesc('puntos_totales')
             ->limit(5)

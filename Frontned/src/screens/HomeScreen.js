@@ -1,6 +1,6 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useEffect, useMemo, useState } from 'react';
-import { Text, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import MetricCard from '../components/MetricCard';
 import SectionTitle from '../components/SectionTitle';
 import { materials } from '../data/mockData';
@@ -16,6 +16,8 @@ export default function HomeScreen({
   totalItems,
   usedRewardPoints
 }) {
+  const recordsPerPage = 5;
+  const [activityPage, setActivityPage] = useState(1);
   const materialTotals = useMemo(
     () => materials.map((material) => {
       const quantity = activity
@@ -36,10 +38,19 @@ export default function HomeScreen({
   const [ranking, setRanking] = useState([]);
   const [rankingError, setRankingError] = useState('');
   const [isLoadingRanking, setIsLoadingRanking] = useState(true);
+  const totalActivityPages = Math.max(Math.ceil(activity.length / recordsPerPage), 1);
+  const visibleActivity = activity.slice(
+    (activityPage - 1) * recordsPerPage,
+    activityPage * recordsPerPage
+  );
 
   useEffect(() => {
     loadRanking();
   }, []);
+
+  useEffect(() => {
+    setActivityPage((current) => Math.min(current, totalActivityPages));
+  }, [totalActivityPages]);
 
   async function loadRanking() {
     setIsLoadingRanking(true);
@@ -192,7 +203,7 @@ export default function HomeScreen({
       </View>
 
       <SectionTitle eyebrow="Actividad" title="Ultimos registros" />
-      {activity.length ? activity.map((item) => (
+      {activity.length ? visibleActivity.map((item) => (
         <View key={item.id} style={styles.listItem}>
           <View style={styles.listIcon}>
             <MaterialCommunityIcons color="#2E7D5B" name="check-circle-outline" size={22} />
@@ -212,6 +223,28 @@ export default function HomeScreen({
           </View>
         </View>
       )}
+
+      {activity.length > recordsPerPage ? (
+        <View style={styles.paginationRow}>
+          <TouchableOpacity
+            disabled={activityPage === 1}
+            onPress={() => setActivityPage((page) => page - 1)}
+            style={[styles.paginationButton, activityPage === 1 && styles.paginationButtonDisabled]}
+          >
+            <MaterialCommunityIcons color={activityPage === 1 ? '#9AA49D' : '#2E7D5B'} name="chevron-left" size={20} />
+            <Text style={[styles.paginationButtonText, activityPage === 1 && styles.paginationButtonTextDisabled]}>Anterior</Text>
+          </TouchableOpacity>
+          <Text style={styles.paginationLabel}>Pagina {activityPage} de {totalActivityPages}</Text>
+          <TouchableOpacity
+            disabled={activityPage === totalActivityPages}
+            onPress={() => setActivityPage((page) => page + 1)}
+            style={[styles.paginationButton, activityPage === totalActivityPages && styles.paginationButtonDisabled]}
+          >
+            <Text style={[styles.paginationButtonText, activityPage === totalActivityPages && styles.paginationButtonTextDisabled]}>Siguiente</Text>
+            <MaterialCommunityIcons color={activityPage === totalActivityPages ? '#9AA49D' : '#2E7D5B'} name="chevron-right" size={20} />
+          </TouchableOpacity>
+        </View>
+      ) : null}
     </View>
   );
 }

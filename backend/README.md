@@ -1,58 +1,211 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# EcoSmart Backend
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+API REST del proyecto EcoSmart, desarrollada con Laravel y PHP. Este backend administra usuarios, autenticacion, registros de reciclaje, puntos verdes, recompensas, canjes y funciones administrativas.
 
-## About Laravel
+## Tecnologias
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- PHP 8.3
+- Laravel 13
+- Laravel Sanctum
+- PostgreSQL
+- pgAdmin para administrar la base de datos
+- API REST consumida por el frontend React Native
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Requisitos
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- PHP instalado
+- Composer instalado
+- PostgreSQL activo
+- Base de datos creada en pgAdmin
 
-## Learning Laravel
+## Instalacion
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
-
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+Desde la carpeta `backend`:
 
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+composer install
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+Crear el archivo `.env` si no existe:
 
-## Contributing
+```bash
+copy .env.example .env
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Generar la llave de Laravel:
 
-## Code of Conduct
+```bash
+php artisan key:generate
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Configuracion de base de datos
 
-## Security Vulnerabilities
+En el archivo `.env`, configurar PostgreSQL:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```env
+DB_CONNECTION=pgsql
+DB_HOST=127.0.0.1
+DB_PORT=5432
+DB_DATABASE=ecosmart
+DB_USERNAME=postgres
+DB_PASSWORD=tu_contrasena
+```
 
-## License
+Luego ejecutar migraciones:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+php artisan migrate
+```
+
+## Ejecutar el servidor
+
+Para que Expo Go pueda consumir la API desde el celular:
+
+```bash
+php artisan serve --host=0.0.0.0 --port=8000
+```
+
+La API quedara disponible en:
+
+```txt
+http://TU-IP-LOCAL:8000/api
+```
+
+Esa misma URL debe colocarse en el frontend, dentro de `Frontned/src/services/api.js`.
+
+## Estructura principal
+
+```txt
+backend/
+  app/
+    Http/
+      Controllers/
+        Api/
+      Middleware/
+    Models/
+  bootstrap/
+  config/
+  database/
+    migrations/
+  routes/
+    api.php
+  tests/
+```
+
+## Carpetas importantes
+
+- `routes/api.php`: define las rutas REST de la aplicacion.
+- `app/Http/Controllers/Api`: contiene la logica de cada modulo de la API.
+- `app/Http/Middleware`: middleware para proteger rutas, incluyendo acceso admin.
+- `app/Models`: modelos Eloquent de usuarios, reciclaje, centros, recompensas y canjes.
+- `database/migrations`: estructura de tablas de la base de datos.
+- `config`: configuraciones generales de Laravel.
+
+## Modelos principales
+
+- `User`: usuarios del sistema y rol (`usuario` o `admin`).
+- `RegistroReciclaje`: reciclajes registrados por el scanner.
+- `CentroReciclaje`: puntos verdes con coordenadas.
+- `Recompensa`: premios disponibles para reclamar.
+- `CanjeRecompensa`: historial y estado de recompensas reclamadas.
+
+## Endpoints publicos
+
+```txt
+GET  /api/health
+POST /api/register
+POST /api/login
+```
+
+## Endpoints protegidos
+
+Requieren token de Laravel Sanctum.
+
+```txt
+GET    /api/me
+POST   /api/logout
+GET    /api/ranking/top-usuarios
+
+GET    /api/registros-reciclaje
+POST   /api/registros-reciclaje
+
+GET    /api/centros-reciclaje
+GET    /api/recompensas
+
+GET    /api/canjes-recompensa
+POST   /api/canjes-recompensa
+```
+
+## Endpoints de administrador
+
+Requieren usuario autenticado con `rol = admin`.
+
+```txt
+GET    /api/admin/resumen
+
+GET    /api/admin/usuarios
+PUT    /api/admin/usuarios/{usuario}
+DELETE /api/admin/usuarios/{usuario}
+
+GET    /api/admin/centros-reciclaje
+POST   /api/admin/centros-reciclaje
+PUT    /api/admin/centros-reciclaje/{centro}
+DELETE /api/admin/centros-reciclaje/{centro}
+
+GET    /api/admin/recompensas
+POST   /api/admin/recompensas
+PUT    /api/admin/recompensas/{recompensa}
+DELETE /api/admin/recompensas/{recompensa}
+
+GET    /api/admin/canjes-recompensa
+PUT    /api/admin/canjes-recompensa/{canje}
+```
+
+## Roles
+
+- `usuario`: puede registrar reciclajes, ver puntos verdes, consultar recompensas y reclamar premios.
+- `admin`: puede gestionar usuarios, ubicaciones, recompensas y canjes.
+
+Para convertir un usuario en administrador desde pgAdmin:
+
+```sql
+UPDATE users SET rol = 'admin' WHERE email = 'correo@ejemplo.com';
+```
+
+## Estados de canje
+
+Un canje de recompensa puede estar en:
+
+- `pendiente`
+- `aprobado`
+- `entregado`
+- `cancelado`
+
+Cuando un usuario reclama una recompensa, queda como `pendiente`. Luego el admin puede aprobarla, marcarla como entregada o cancelarla desde la app.
+
+## Validaciones
+
+El backend valida:
+
+- campos obligatorios,
+- correos validos,
+- contrasenas minimas,
+- roles permitidos,
+- coordenadas validas,
+- puntos y cantidades numericas,
+- estados permitidos para canjes.
+
+## Pruebas basicas
+
+Revisar que Laravel responda:
+
+```bash
+php artisan route:list
+php artisan test
+```
+
+Revisar sintaxis de un archivo PHP:
+
+```bash
+php -l app\Http\Controllers\Api\AdminController.php
+```

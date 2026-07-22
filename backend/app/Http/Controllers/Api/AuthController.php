@@ -69,6 +69,30 @@ class AuthController extends Controller
         ]);
     }
 
+    public function updateProfile(Request $request): JsonResponse
+    {
+        $usuario = $request->user();
+        $datos = $request->validate([
+            'nombre' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'max:255', 'unique:users,email,'.$usuario->id],
+            'password' => ['nullable', 'string', 'min:6'],
+        ]);
+
+        if (! empty($datos['password'])) {
+            $datos['password'] = Hash::make($datos['password']);
+        } else {
+            unset($datos['password']);
+        }
+
+        $usuario->update($datos);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Perfil actualizado correctamente.',
+            'data' => $usuario->fresh(),
+        ]);
+    }
+
     public function logout(Request $request): JsonResponse
     {
         $request->user()->currentAccessToken()?->delete();

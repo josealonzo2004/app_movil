@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://192.168.100.11:8000/api';
+const API_BASE_URL = 'http://10.67.88.235:8000/api';
 
 let authToken = null;
 

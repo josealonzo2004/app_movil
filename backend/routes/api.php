@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\AdminController;
 use App\Http\Controllers\Api\CanjeRecompensaController;
 use App\Http\Controllers\Api\CentroReciclajeController;
 use App\Http\Controllers\Api\RankingController;
@@ -19,6 +20,7 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function (): void {
     Route::get('/me', [AuthController::class, 'me']);
+    Route::put('/me', [AuthController::class, 'updateProfile']);
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/ranking/top-usuarios', [RankingController::class, 'topUsers']);
 
@@ -32,5 +34,25 @@ Route::middleware('auth:sanctum')->group(function (): void {
 
     Route::get('/user', function (Request $request) {
         return $request->user();
+    });
+
+    Route::prefix('admin')->middleware('admin')->group(function (): void {
+        Route::get('/resumen', [AdminController::class, 'resumen']);
+        Route::get('/usuarios', [AdminController::class, 'usuarios']);
+        Route::put('/usuarios/{usuario}', [AdminController::class, 'actualizarUsuario']);
+        Route::delete('/usuarios/{usuario}', [AdminController::class, 'eliminarUsuario']);
+
+        Route::get('/centros-reciclaje', [AdminController::class, 'centros']);
+        Route::post('/centros-reciclaje', [AdminController::class, 'guardarCentro']);
+        Route::put('/centros-reciclaje/{centro}', [AdminController::class, 'actualizarCentro']);
+        Route::delete('/centros-reciclaje/{centro}', [AdminController::class, 'eliminarCentro']);
+
+        Route::get('/recompensas', [AdminController::class, 'recompensas']);
+        Route::post('/recompensas', [AdminController::class, 'guardarRecompensa']);
+        Route::put('/recompensas/{recompensa}', [AdminController::class, 'actualizarRecompensa']);
+        Route::delete('/recompensas/{recompensa}', [AdminController::class, 'eliminarRecompensa']);
+
+        Route::get('/canjes-recompensa', [AdminController::class, 'canjes']);
+        Route::put('/canjes-recompensa/{canje}', [AdminController::class, 'actualizarCanje']);
     });
 });

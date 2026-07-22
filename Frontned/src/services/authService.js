@@ -46,3 +46,12 @@ export async function logoutUser() {
     clearAuthToken();
   }
 }
+
+export async function updateUserProfile(data) {
+  const response = await apiRequest('/me', {
+    method: 'PUT',
+    body: JSON.stringify(data)
+  });
+
+  return response.data;
+}
